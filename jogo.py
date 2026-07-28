@@ -96,3 +96,115 @@ def le_escolha_usuario():
         else:
             # Entrada inexistente/inválida: avisa e volta para o início do loop
             print("Opção inválida! Digite A, B, C, D, pula ou ajuda.")
+
+def joga_uma_partida(nome, base):
+    # Executa uma partida completa, do início até o fim (vitória, derrota ou parada voluntária)
+ 
+    # Estado inicial da partida
+    premio_atual = 0
+    pulos = PULOS_INICIAIS
+    ajudas = AJUDAS_INICIAIS
+    questoes_sorteadas = []  # guarda todas as perguntas já sorteadas nesta partida, para não repetir
+ 
+    # Flags que indicam como/se a partida terminou
+    perdeu = False
+    ganhou_tudo = False
+    parou_por_vontade = False
+ 
+    # Laço externo: representa as 9 rodadas da partida
+    rodada = 0
+    while rodada < len(PREMIOS):
+        nivel = NIVEIS_POR_RODADA[rodada]
+ 
+        # Passo 3 do enunciado: sorteia uma pergunta inédita do nível da rodada atual
+        questao = sorteia_questao_inedita(base, nivel, questoes_sorteadas)
+ 
+        # Controla se a ajuda já foi usada NESTA pergunta (reseta a cada nova pergunta)
+        ajuda_usada_nesta_pergunta = False
+ 
+        # Laço interno: mantém a mesma pergunta na tela até haver uma resposta A/B/C/D
+        respondendo = True
+        while respondendo:
+            print()
+            # Exibe a pergunta formatada (função do EP2)
+            print(questao_para_texto(questao, rodada + 1))
+            print()
+            print("Prêmio atual: " + formata_dinheiro(premio_atual))
+            print("Pulos restantes: " + str(pulos) + " | Ajudas restantes: " + str(ajudas))
+ 
+            escolha = le_escolha_usuario()
+ 
+            if escolha in ['A', 'B', 'C', 'D']:
+                if escolha == questao['correta']:
+                    # Passo 7: resposta correta -> aumenta o prêmio
+                    premio_atual = PREMIOS[rodada]
+                    print()
+                    print("Parabéns, " + nome + "! Resposta correta!")
+                    print("Prêmio atual: " + formata_dinheiro(premio_atual))
+ 
+                    if premio_atual == PREMIOS[-1]:
+                        # Atingiu o prêmio máximo (R$ 1.000.000): o jogo acaba automaticamente
+                        ganhou_tudo = True
+                        respondendo = False
+                    else:
+                        # Passo 9: pergunta se o jogador quer parar (levando o prêmio) ou continuar
+                        resp = input("Deseja PARAR e levar o prêmio, ou CONTINUAR jogando? (parar/continuar): ").strip().lower()
+                        if resp == 'parar':
+                            parou_por_vontade = True
+                        respondendo = False  # em qualquer caso, sai do loop interno
+                else:
+                    # Passo 8: resposta errada -> perde tudo e a partida acaba
+                    print()
+                    print("Que pena, " + nome + "! Resposta ERRADA!")
+                    print("A resposta correta era: " + questao['correta'] + " - " + questao['opcoes'][questao['correta']])
+                    premio_atual = 0
+                    perdeu = True
+                    respondendo = False
+ 
+            elif escolha == 'ajuda':
+                # Passo 5: pedido de ajuda
+                if ajuda_usada_nesta_pergunta:
+                    # Regra: não pode usar mais de uma ajuda na mesma pergunta
+                    print("Você já usou uma ajuda nesta pergunta! Escolha outra opção.")
+                elif ajudas <= 0:
+                    # Regra: só há 2 ajudas no total da partida
+                    print("Você não tem mais ajudas disponíveis!")
+                else:
+                    # Gera a dica (1 ou 2 opções erradas) usando a função do EP2
+                    print(gera_ajuda(questao))
+                    ajudas -= 1
+                    ajuda_usada_nesta_pergunta = True
+                # Não altera 'respondendo': a mesma pergunta continua sendo exibida
+ 
+            elif escolha == 'pula':
+                # Passo 6: pedido para pular a pergunta
+                if pulos <= 0:
+                    # Sem pulos disponíveis: informa e reexibe a MESMA pergunta
+                    print("Você não tem mais pulos disponíveis!")
+                else:
+                    pulos -= 1
+                    print("Pergunta pulada! Sorteando uma nova pergunta do mesmo nível...")
+                    # Sorteia uma NOVA pergunta inédita do mesmo nível, substituindo a atual
+                    questao = sorteia_questao_inedita(base, nivel, questoes_sorteadas)
+                    # A nova pergunta ainda não teve ajuda usada nela
+                    ajuda_usada_nesta_pergunta = False
+                # Não altera 'respondendo': o loop interno continua com a pergunta (nova ou mesma)
+ 
+        # Fora do loop interno: a pergunta da rodada foi respondida (certo ou errado)
+        if perdeu or ganhou_tudo or parou_por_vontade:
+            # Algum motivo de término da partida ocorreu: interrompe o laço de rodadas
+            break
+ 
+        # Resposta certa e o jogador optou por continuar: avança para a próxima rodada
+        rodada += 1
+ 
+    # Fim da partida: exibe a mensagem final de acordo com o motivo do término
+    print()
+    print("=" * 50)
+    if ganhou_tudo:
+        print("PARABÉNS, " + nome + "! Você ganhou o prêmio máximo de " + formata_dinheiro(PREMIOS[-1]) + "!")
+    elif perdeu:
+        print("Fim de jogo, " + nome + ". Você saiu sem nenhum prêmio.")
+    else:
+        print("Você decidiu parar, " + nome + ". Seu prêmio final foi de " + formata_dinheiro(premio_atual) + ".")
+    print("=" * 50)
