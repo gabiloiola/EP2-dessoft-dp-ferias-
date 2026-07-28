@@ -37,7 +37,7 @@ quest = [{'titulo': 'Qual o resultado da operação 57 + 32?',
           'nivel': 'facil',
           'opcoes': {'A': '2019', 'B': '2021', 'C': '2015', 'D': '2018'},
           'correta': 'B'},
-         
+
          {'titulo': 'Qual destes não é um app com foco em streaming de vídeo?',
           'nivel': 'facil',
           'opcoes': {'A': 'Netflix', 'B': 'Disney Plus', 'C': 'TIDAL', 'D': 'HBO Max'},
@@ -57,7 +57,7 @@ quest = [{'titulo': 'Qual o resultado da operação 57 + 32?',
           'nivel': 'facil',
           'opcoes': {'A': 'Natação', 'B': 'Vôlei', 'C': 'Ski Cross Country', 'D': 'Futebol'},
           'correta': 'C'},
-         
+
          {'titulo': 'Qual o resultado da operação 5 + 2 * 3?',
           'nivel': 'medio',
           'opcoes': {'A': '21', 'B': '11', 'C': '30', 'D': '10'},
@@ -147,7 +147,7 @@ quest = [{'titulo': 'Qual o resultado da operação 57 + 32?',
           'nivel': 'dificil',
           'opcoes': {'A': '120º C', 'B': '15º C', 'C': '-210º C', 'D': '-180º C'},
           'correta': 'C'},
-         
+
          {'titulo': 'Quantos gols Pelé fez oficialmente?',
           'nivel': 'dificil',
           'opcoes': {'A': '815', 'B': '762', 'C': '1100', 'D': '1057'},
@@ -156,19 +156,20 @@ quest = [{'titulo': 'Qual o resultado da operação 57 + 32?',
          {'titulo': 'O que é Necrose?',
           'nivel': 'dificil',
           'opcoes': {'A': 'Uma banda de Rock', 'B': 'Uma marca de luxo', 'C': 'Cidade Francesa', 'D': 'Morte de tecido orgânico'},
-          'correta': 'D'}
+          'correta': 'D'},
+
          {'titulo': 'Qual é o maior oceano do planeta Terra?',
-         'nivel': 'facil',
-         'opcoes': {'A': 'Oceano Atlântico', 'B': 'Oceano Índico', 'C': 'Oceano Pacífico', 'D': 'Oceano Ártico'},
-         'correta': 'C'},
+          'nivel': 'facil',
+          'opcoes': {'A': 'Oceano Atlântico', 'B': 'Oceano Índico', 'C': 'Oceano Pacífico', 'D': 'Oceano Ártico'},
+          'correta': 'C'},
 
          {'titulo': 'Qual destes elementos químicos possui o símbolo "Ag"?',
-         'nivel': 'medio',
-         'opcoes': {'A': 'Ouro', 'B': 'Prata', 'C': 'Alumínio', 'D': 'Argônio'},
-         'correta': 'B'},
+          'nivel': 'medio',
+          'opcoes': {'A': 'Ouro', 'B': 'Prata', 'C': 'Alumínio', 'D': 'Argônio'},
+          'correta': 'B'},
 
          {'titulo': 'Qual cientista formulou as três leis do movimento e a lei da gravitação universal?',
-         'nivel': 'dificil',
-         'opcoes': {'A': 'Galileu Galilei', 'B': 'Albert Einstein', 'C': 'Isaac Newton', 'D': 'Nicolau Copérnico'},
-         'correta': 'C'},
+          'nivel': 'dificil',
+          'opcoes': {'A': 'Galileu Galilei', 'B': 'Albert Einstein', 'C': 'Isaac Newton', 'D': 'Nicolau Copérnico'},
+          'correta': 'C'},
         ]
