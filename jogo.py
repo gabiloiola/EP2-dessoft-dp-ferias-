@@ -208,3 +208,35 @@ def joga_uma_partida(nome, base):
     else:
         print("Você decidiu parar, " + nome + ". Seu prêmio final foi de " + formata_dinheiro(premio_atual) + ".")
     print("=" * 50)
+def main():
+    # Ponto de entrada do programa
+ 
+    # Exibe o manual de regras
+    exibe_manual()
+ 
+    # Pede o nome do jogador
+    nome = input("Qual o seu nome? ").strip()
+ 
+    # Valida a base de perguntas antes de permitir que o jogo comece
+    if not valida_base_de_dados(quest):
+        print("Não foi possível iniciar o jogo: base de perguntas inconsistente.")
+        return
+ 
+    # Agrupa as perguntas por nível (formato exigido pelas funções de sorteio)
+    base = transforma_base(quest)
+ 
+    # Permite jogar várias partidas seguidas, se o jogador quiser
+    jogar_novamente = True
+    while jogar_novamente:
+        joga_uma_partida(nome, base)
+ 
+        resp = input("Deseja jogar novamente? (sim/nao): ").strip().lower()
+        jogar_novamente = (resp == 'sim')
+ 
+    print()
+    print("Obrigado por jogar, " + nome + "! Até a próxima!")
+ 
+ 
+# Garante que main() só executa quando o arquivo é rodado diretamente (não quando é importado)
+if __name__ == '__main__':
+    main()
